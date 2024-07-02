@@ -11,12 +11,12 @@ public class ComicCategory implements Serializable {
 
     @ManyToOne
     @MapsId("comicId")
-    @JoinColumn(name = "id_comic")
+    @JoinColumn(name = "comic_id")
     private Comic comic;
 
     @ManyToOne
     @MapsId("categoryId")
-    @JoinColumn(name = "id_category")
+    @JoinColumn(name = "category_id")
     private Category category;
 
     // Getters and Setters, equals(), hashCode()
