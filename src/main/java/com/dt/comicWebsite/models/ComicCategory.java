@@ -20,6 +20,29 @@ public class ComicCategory implements Serializable {
     private Category category;
 
     // Getters and Setters, equals(), hashCode()
+    public ComicCategoryId getId() {
+        return id;
+    }
+
+    public void setId(ComicCategoryId id) {
+        this.id = id;
+    }
+
+    public Comic getComic() {
+        return comic;
+    }
+
+    public void setComic(Comic comic) {
+        this.comic = comic;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 }
 
 

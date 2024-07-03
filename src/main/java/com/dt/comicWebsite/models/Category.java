@@ -26,6 +26,7 @@ public class Category {
     @Column(nullable = false)
     private LocalDateTime updated_at;
 
+    // RELATE
     @ManyToMany(mappedBy = "categories")
     private Set<Comic> comics = new HashSet<>();
 }

@@ -5,17 +5,16 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "images")
-public class Image {
-
+@Table(name = "chapters")
+public class Chapter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    private int sequence_number;
-    private String image_path;
+    private int chapter_number;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
@@ -25,10 +24,16 @@ public class Image {
     @Column(nullable = false)
     private LocalDateTime updated_at;
 
-    // RELATE
+    // relate
     @ManyToOne
-    @JoinColumn(name = "chapter_id")
-    private Chapter chapter;
+    @JoinColumn(name = "comic_id")
+    private Comic comic;
+
+    @OneToMany(mappedBy = "chapter")
+    private Set<Comment> comments = new HashSet<>();
+
+    @OneToMany(mappedBy = "chapter")
+    private Set<Image> images = new HashSet<>();
 
     // GETTER, SETTER
     public int getId() {
@@ -39,20 +44,12 @@ public class Image {
         this.id = id;
     }
 
-    public int getSequence_number() {
-        return sequence_number;
+    public int getChapter_number() {
+        return chapter_number;
     }
 
-    public void setSequence_number(int sequence_number) {
-        this.sequence_number = sequence_number;
-    }
-
-    public String getImage_path() {
-        return image_path;
-    }
-
-    public void setImage_path(String image_path) {
-        this.image_path = image_path;
+    public void setChapter_number(int chapter_number) {
+        this.chapter_number = chapter_number;
     }
 
     public LocalDateTime getCreated_at() {
@@ -71,11 +68,27 @@ public class Image {
         this.updated_at = updated_at;
     }
 
-    public Chapter getChapter() {
-        return chapter;
+    public Comic getComic() {
+        return comic;
     }
 
-    public void setChapter(Chapter chapter) {
-        this.chapter = chapter;
+    public void setComic(Comic comic) {
+        this.comic = comic;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public Set<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(Set<Image> images) {
+        this.images = images;
     }
 }
