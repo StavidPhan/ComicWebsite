@@ -34,6 +34,7 @@ public class Comic {
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    // relate
     @ManyToMany
     @JoinTable(
             name = "comic_category",
@@ -41,6 +42,9 @@ public class Comic {
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
     private Set<Category> categories = new HashSet<>();
+
+    @OneToMany(mappedBy = "comic")
+    private Set<Comment> comment;
 
 
     public int getId() {

@@ -9,5 +9,20 @@ public class ComicCategoryId implements Serializable {
     private int comicId;
     private int categoryId;
 
-    // Getters and Setters, equals(), hashCode()
+    // GETTER and SETTER, equals(), hashCode()
+    public int getComicId() {
+        return comicId;
+    }
+
+    public void setComicId(int comicId) {
+        this.comicId = comicId;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
 }
