@@ -22,6 +22,17 @@ public class Comic {
     @Column(nullable = false)
     private LocalDateTime updated_at;
 
+    @PrePersist
+    protected void onCreate() {
+        created_at = LocalDateTime.now();
+        updated_at = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updated_at = LocalDateTime.now();
+    }
+
     // field
     private String name;
     private String Author;
