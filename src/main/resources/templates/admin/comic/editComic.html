@@ -10,7 +10,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 mx-auto rounded border p-4 m-4">
-            <h2 class="text-center mb-5">New Comic</h2>
+            <h2 class="text-center mb-5">Edit Comic</h2>
 
             <form method="post" enctype="multipart/form-data" th:object="${comic}">
                 <div class="row mb-3">
@@ -48,7 +48,7 @@
                 <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">Likes</label>
                     <div class="col-sm-8">
-                        <input class="form-control" th:field="${comic.likes}">
+                        <input class="form-control" th:field="${comic.likes}" type="number">
                         <p th:if="${#fields.hasErrors('likes')}" th:errorclass="text-danger"
                            th:errors="${comic.likes}"></p>
                     </div>
@@ -56,7 +56,7 @@
                 <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">Views</label>
                     <div class="col-sm-8">
-                        <input class="form-control" th:field="${comic.views}">
+                        <input class="form-control" th:field="${comic.views}" type="number">
                         <p th:if="${#fields.hasErrors('views')}" th:errorclass="text-danger"
                            th:errors="${comic.views}"></p>
                     </div>
@@ -64,7 +64,7 @@
                 <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">Subscribes</label>
                     <div class="col-sm-8">
-                        <input class="form-control" th:field="${comic.subscribes}">
+                        <input class="form-control" th:field="${comic.subscribes}" type="number">
                         <p th:if="${#fields.hasErrors('subscribes')}" th:errorclass="text-danger"
                            th:errors="${comic.subscribes}"></p>
                     </div>
@@ -77,6 +77,7 @@
                            th:errors="${comic.description}"></p>
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="offset-sm-4 col-sm-4 d-grid">
                         <button type="submit" class="btn btn-primary">Submit</button>

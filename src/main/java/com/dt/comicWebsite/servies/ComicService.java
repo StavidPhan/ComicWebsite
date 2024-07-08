@@ -21,7 +21,7 @@ public class ComicService {
         return comicRepo.findById(id);
     }
 
-    public Boolean create(Comic comic) {
+    public Boolean save(Comic comic) {
         try {
             comicRepo.save(comic);
             return true;

@@ -14,6 +14,8 @@ import java.util.List;
 public class ComicController {
     @Autowired
     private ComicService comicService;
+
+    // READ
     @GetMapping({"", "/"})
     public String showComicList(Model model) {
         List<Comic> comics = comicService.getAll();
@@ -21,6 +23,7 @@ public class ComicController {
         return "admin/comic/index";
     }
 
+    // CREATE
     @GetMapping("/create")
     public String showCreateForm(Model model) {
         model.addAttribute("comic", new Comic());
@@ -29,7 +32,29 @@ public class ComicController {
 
     @PostMapping("/create")
     public String createComic(@ModelAttribute Comic comic) {
-        comicService.create(comic);
+        comicService.save(comic);
+        return "redirect:/admin/comics";
+    }
+
+    // EDIT
+    @GetMapping("/edit")
+    public String showEditForm(@RequestParam int id, Model model) {
+        Comic comic = comicService.getById(id).get();
+        model.addAttribute("comic", comic);
+        return "admin/comic/editComic";
+    }
+
+    @PostMapping("/edit")
+    public String editComic(@RequestParam int id, @ModelAttribute Comic comic) {
+        comic.setId(id);   // đảm bảo id không bị thay đổi
+        comicService.save(comic);
+        return "redirect:/admin/comics";
+    }
+
+    // DELETE
+    @GetMapping("/delete")
+    public String deleteComic(@RequestParam int id) {
+        comicService.delete(id);
         return "redirect:/admin/comics";
     }
 }
