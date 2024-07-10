@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <h1 class="text-center my-4">Comics</h1>
-        <a class="btn btn-primary" href="/admin/comics/create">Create Comic</a>
+        <a class="btn btn-primary" href="/admin/comic/create">Create Comic</a>
 
         <table class="table">
             <thead>
@@ -29,7 +29,6 @@
                 </tr>
             </thead>
             <tbody>
-
                 <tr th:each="comic : ${comics}">
                     <td th:text="${comic.id} "></td>
                     <td th:text="${comic.name} "></td>
@@ -45,9 +44,9 @@
 
                     <td style="white-space: nowrap">
                         <a class="btn btn-primary btn-sm"
-                            th:href="@{/admin/comics/edit(id=${comic.id})}">Edit</a>
+                            th:href="@{/admin/comic/edit(id=${comic.id})}">Edit</a>
                         <a class="btn btn-danger btn-sm"
-                            th:href="@{/admin/comics/delete(id=${comic.id})}"
+                            th:href="@{/admin/comic/delete(id=${comic.id})}"
                             onclick="return confirm('Are you sure?')">Delete</a>
                     </td>
                 </tr>

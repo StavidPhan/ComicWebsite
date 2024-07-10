@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin/comics")
+@RequestMapping("/admin/comic")
 public class ComicController {
     @Autowired
     private ComicService comicService;
@@ -33,7 +33,7 @@ public class ComicController {
     @PostMapping("/create")
     public String createComic(@ModelAttribute Comic comic) {
         comicService.save(comic);
-        return "redirect:/admin/comics";
+        return "redirect:/admin/comic";
     }
 
     // EDIT
@@ -48,13 +48,13 @@ public class ComicController {
     public String editComic(@RequestParam int id, @ModelAttribute Comic comic) {
         comic.setId(id);   // đảm bảo id không bị thay đổi
         comicService.save(comic);
-        return "redirect:/admin/comics";
+        return "redirect:/admin/comic";
     }
 
     // DELETE
     @GetMapping("/delete")
     public String deleteComic(@RequestParam int id) {
         comicService.delete(id);
-        return "redirect:/admin/comics";
+        return "redirect:/admin/comic";
     }
 }
