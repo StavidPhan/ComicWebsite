@@ -20,7 +20,7 @@ public class ComicController {
     public String showComicList(Model model) {
         List<Comic> comics = comicService.getAll();
         model.addAttribute("comics", comics);
-        return "admin/comic/index";
+        return "admin/comic/list";
     }
 
     // CREATE
