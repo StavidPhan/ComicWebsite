@@ -2,6 +2,7 @@ package com.dt.comicWebsite.controllers.admin;
 
 import com.dt.comicWebsite.models.Comic;
 import com.dt.comicWebsite.servies.ComicService;
+import com.dt.comicWebsite.servies.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,9 @@ public class ComicController {
     @Autowired
     private ComicService comicService;
 
+    @Autowired
+    private CategoryService categoryService;
+
     // READ
     @GetMapping({"", "/"})
     public String showComicList(Model model) {
@@ -27,12 +31,13 @@ public class ComicController {
     @GetMapping("/create")
     public String showCreateForm(Model model) {
         model.addAttribute("comic", new Comic());
+        model.addAttribute("categories", categoryService.getAll());
         return "admin/comic/createComic";
     }
 
     @PostMapping("/create")
-    public String createComic(@ModelAttribute Comic comic) {
-        comicService.save(comic);
+    public String createComic(@ModelAttribute Comic comic, @RequestParam List<Integer> categoryIds) {
+        comicService.save(comic, categoryIds);
         return "redirect:/admin/comic";
     }
 
@@ -47,7 +52,7 @@ public class ComicController {
     @PostMapping("/edit")
     public String editComic(@RequestParam int id, @ModelAttribute Comic comic) {
         comic.setId(id);   // đảm bảo id không bị thay đổi
-        comicService.save(comic);
+//        comicService.save(comic);
         return "redirect:/admin/comic";
     }
 
