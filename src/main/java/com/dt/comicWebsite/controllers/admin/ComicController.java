@@ -46,13 +46,14 @@ public class ComicController {
     public String showEditForm(@RequestParam int id, Model model) {
         Comic comic = comicService.getById(id).get();
         model.addAttribute("comic", comic);
+        model.addAttribute("categories", categoryService.getAll());
         return "admin/comic/editComic";
     }
 
     @PostMapping("/edit")
-    public String editComic(@RequestParam int id, @ModelAttribute Comic comic) {
+    public String editComic(@RequestParam int id, @RequestParam List<Integer> categoryIds, @ModelAttribute Comic comic) {
         comic.setId(id);   // đảm bảo id không bị thay đổi
-//        comicService.save(comic);
+        comicService.save(comic, categoryIds);
         return "redirect:/admin/comic";
     }
 
