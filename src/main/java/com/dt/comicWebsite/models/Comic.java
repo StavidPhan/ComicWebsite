@@ -57,7 +57,7 @@ public class Comic {
     @OneToMany(mappedBy = "comic")
     private Set<Comment> comment;
 
-
+    // GETTER AND SETTER
     public int getId() {
         return id;
     }
@@ -144,5 +144,21 @@ public class Comic {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
+    }
+
+    public Set<Comment> getComment() {
+        return comment;
+    }
+
+    public void setComment(Set<Comment> comment) {
+        this.comment = comment;
     }
 }
