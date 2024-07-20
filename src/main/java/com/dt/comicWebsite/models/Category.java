@@ -1,6 +1,7 @@
 package com.dt.comicWebsite.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -14,8 +15,9 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
+    @NotEmpty(message = "Name cannot be empty.")
     private String name;
 
     @CreatedDate
@@ -42,11 +44,11 @@ public class Category {
     private Set<Comic> comics = new HashSet<>();
 
     // GETTER, SETTER
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

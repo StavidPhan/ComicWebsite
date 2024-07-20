@@ -81,18 +81,20 @@
                                    th:errors="${comic.description}"></p>
                             </div>
                         </div>
+                        <!--CATEGORIES FIELD-->
                         <div class="row mb-3">
                             <label class="col-sm-4 col-form-label">Categories</label>
                             <div class="col-sm-8">
-                                <select class="form-control" name="categoryIds" multiple>
-                                    <th:block th:each="category : ${categories}">
-                                        <option th:value="${category.id}" th:text="${category.name}"></option>
-                                    </th:block>
+                                <select class="form-control" th:field="*{categories}" multiple>
+                                    <option th:each="category : ${categories}"
+                                            th:value="${category.id}"
+                                            th:text="${category.name}"></option>
                                 </select>
                                 <p th:if="${#fields.hasErrors('categories')}" th:errorclass="text-danger"
                                    th:errors="${comic.categories}"></p>
                             </div>
                         </div>
+                        <!--END CATEGORIES FIELD-->
                         <div class="row">
                             <div class="offset-sm-4 col-sm-4 d-grid">
                                 <button type="submit" class="btn btn-primary">Submit</button>

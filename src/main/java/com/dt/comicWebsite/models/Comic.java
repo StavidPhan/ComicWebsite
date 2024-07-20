@@ -1,8 +1,11 @@
 package com.dt.comicWebsite.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.PositiveOrZero;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,7 +15,7 @@ import java.util.Set;
 public class Comic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
@@ -34,13 +37,20 @@ public class Comic {
     }
 
     // field
+    @NotEmpty(message = "Name cannot be empty.")
     private String name;
-    private String Author;
+    @NotEmpty(message = "Author cannot be empty.")
+    private String author;
     private String status;
     private String country;
-    private int likes;
-    private int views;
-    private int subscribes;
+    @PositiveOrZero(message = "Likes must be greater than or equal to 0.")
+    private int likes = 0;
+
+    @PositiveOrZero(message = "Views must be greater than or equal to 0.")
+    private int views = 0;
+
+    @PositiveOrZero(message = "Subscribes must be greater than or equal to 0.")
+    private int subscribes = 0;
 
     @Column(columnDefinition = "TEXT")
     private String description;
@@ -52,13 +62,14 @@ public class Comic {
             joinColumns = @JoinColumn(name = "comic_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
+    @NotEmpty(message = "At least one category must be selected.")
     private Set<Category> categories = new HashSet<>();
 
     @OneToMany(mappedBy = "comic")
     private Set<Comment> comment;
 
     // GETTER AND SETTER
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -75,7 +86,7 @@ public class Comic {
     }
 
     public String getAuthor() {
-        return Author;
+        return author;
     }
 
     public String getStatus() {
@@ -102,7 +113,7 @@ public class Comic {
         return description;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -119,7 +130,7 @@ public class Comic {
     }
 
     public void setAuthor(String author) {
-        Author = author;
+        this.author = author;
     }
 
     public void setStatus(String status) {
