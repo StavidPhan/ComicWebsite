@@ -6,6 +6,7 @@ import com.dt.comicWebsite.repositories.CategoryRepository;
 import com.dt.comicWebsite.repositories.ComicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
@@ -24,22 +25,30 @@ public class ComicService {
         return comicRepo.findAll();
     }
 
-    public Optional<Comic> getById(Integer id) {
-        return comicRepo.findById(id);
+    public Comic getById(Integer id) {
+        return comicRepo.findById(id).orElseThrow(() -> new RuntimeException("Comic not found!"));
     }
 
-
-    public Boolean save(Comic comic, List<Integer> categoryIds) {
+    @Transactional
+    public Boolean save(Comic comic) {
         try {
-            Set<Category> categories = new HashSet<>();
-            for (Integer categoryId : categoryIds) {
-                Category category = categoryRepo.findById(categoryId).orElse(null);
-                if (category != null) {
-                    categories.add(category);
-                }
+            // creat a new Comic
+            if (comic.getId() == null) {
+                comicRepo.save(comic);
+            } else {
+                // update Comic
+                Comic existingComic = comicRepo.findById(comic.getId()).orElseThrow(() -> new RuntimeException("Comic not found in edit Comic"));
+                existingComic.setName(comic.getName());
+                existingComic.setAuthor(comic.getAuthor());
+                existingComic.setStatus(comic.getStatus());
+                existingComic.setCountry(comic.getCountry());
+                existingComic.setLikes(comic.getLikes());
+                existingComic.setViews(comic.getViews());
+                existingComic.setSubscribes(comic.getSubscribes());
+                existingComic.setDescription(comic.getDescription());
+                existingComic.setCategories(comic.getCategories());
+                comicRepo.save(existingComic);
             }
-            comic.setCategories(categories);
-            comicRepo.save(comic);
             return true;
         } catch (Exception e) {
             e.printStackTrace();

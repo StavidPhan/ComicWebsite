@@ -2,9 +2,12 @@ package com.dt.comicWebsite.controllers.admin;
 
 import com.dt.comicWebsite.models.Category;
 import com.dt.comicWebsite.servies.CategoryService;
+import com.dt.comicWebsite.servies.ComicService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +17,9 @@ import java.util.List;
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private ComicService comicService;
 
     // READ
     @GetMapping({"", "/"})
@@ -31,7 +37,11 @@ public class CategoryController {
     }
 
     @PostMapping("/create")
-    public String createCategory(@ModelAttribute Category category) {
+    public String createCategory(@ModelAttribute @Valid Category category, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "admin/category/createCategory";
+        }
+
         categoryService.save(category);
         return "redirect:/admin/category";
     }
@@ -45,7 +55,11 @@ public class CategoryController {
     }
 
     @PostMapping("/edit")
-    public String editCategory(@RequestParam int id, @ModelAttribute Category category) {
+    public String editCategory(@RequestParam int id, @Valid @ModelAttribute Category category, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "admin/category/editCategory";
+        }
+
         category.setId(id);
         categoryService.save(category);
         return "redirect:/admin/category";
