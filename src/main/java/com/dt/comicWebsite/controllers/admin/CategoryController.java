@@ -2,13 +2,13 @@ package com.dt.comicWebsite.controllers.admin;
 
 import com.dt.comicWebsite.models.Category;
 import com.dt.comicWebsite.servies.CategoryService;
-import com.dt.comicWebsite.servies.ComicService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -18,15 +18,12 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @Autowired
-    private ComicService comicService;
-
     // READ
     @GetMapping({"", "/"})
     public String showCategoryList(Model model) {
         List<Category> categories = categoryService.getAll();
         model.addAttribute("categories", categories);
-        return "admin/category/list";
+        return "admin/category/listCategory";
     }
 
     // CREATE
@@ -67,7 +64,12 @@ public class CategoryController {
 
     // DELETE
     @GetMapping("/delete")
-    public String deleteCategory(@RequestParam int id) {
+    public String deleteCategory(@RequestParam int id, RedirectAttributes redirectAttributes) {
+        if (categoryService.hasComics(id)) {
+            redirectAttributes.addFlashAttribute("error", "Category cannot be deleted because it is associated with existing comics.");
+            return "redirect:/admin/category";
+        }
+
         categoryService.delete(id);
         return "redirect:/admin/category";
     }

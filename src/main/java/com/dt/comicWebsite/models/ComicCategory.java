@@ -1,6 +1,7 @@
 package com.dt.comicWebsite.models;
 
 import jakarta.persistence.*;
+
 import java.io.Serializable;
 
 @Entity

@@ -1,9 +1,9 @@
 package com.dt.comicWebsite.controllers.admin;
 
-import com.dt.comicWebsite.models.Comic;
 import com.dt.comicWebsite.models.Category;
-import com.dt.comicWebsite.servies.ComicService;
+import com.dt.comicWebsite.models.Comic;
 import com.dt.comicWebsite.servies.CategoryService;
+import com.dt.comicWebsite.servies.ComicService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,7 +28,7 @@ public class ComicController {
     public String showComicList(Model model) {
         List<Comic> comics = comicService.getAll();
         model.addAttribute("comics", comics);
-        return "admin/comic/list";
+        return "admin/comic/listComic";
     }
 
     // CREATE

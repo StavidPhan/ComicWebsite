@@ -1,8 +1,8 @@
 package com.dt.comicWebsite.servies;
 
 import com.dt.comicWebsite.models.Category;
-import com.dt.comicWebsite.models.Comic;
 import com.dt.comicWebsite.repositories.CategoryRepository;
+import com.dt.comicWebsite.repositories.ComicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +13,9 @@ import java.util.Optional;
 public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepo;
+
+    @Autowired
+    private ComicRepository comicRepo;
 
     public List<Category> getAll() {
         return categoryRepo.findAll();
@@ -32,13 +35,17 @@ public class CategoryService {
         return false;
     }
 
-    public Boolean delete(Integer id) {
+    public boolean hasComics(int categoryId) {
+        Category category = categoryRepo.findById(categoryId)
+                .orElseThrow(() -> new RuntimeException("Category not found."));
+        return !category.getComics().isEmpty();
+    }
+
+    public void delete(int id) {
         try {
             categoryRepo.deleteById(id);
-            return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
     }
 }
