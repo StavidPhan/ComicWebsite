@@ -35,6 +35,18 @@ public class Chapter {
     @OneToMany(mappedBy = "chapter")
     private Set<Image> images = new HashSet<>();
 
+    // signal
+    @PrePersist
+    protected void onCreate() {
+        created_at = LocalDateTime.now();
+        updated_at = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updated_at = LocalDateTime.now();
+    }
+
     // GETTER, SETTER
     public int getId() {
         return id;
