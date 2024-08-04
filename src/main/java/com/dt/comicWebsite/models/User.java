@@ -17,7 +17,7 @@ public class User {
     private String username;
     private String email;
     private String password;
-    private boolean is_staff;
+    private String role;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
@@ -60,12 +60,12 @@ public class User {
         this.password = password;
     }
 
-    public boolean isIs_staff() {
-        return is_staff;
+    public String getRole() {
+        return role;
     }
 
-    public void setIs_staff(boolean is_staff) {
-        this.is_staff = is_staff;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public LocalDateTime getCreated_at() {

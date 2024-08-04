@@ -1,9 +1,7 @@
-package com.dt.comicWebsite.servies;
+package com.dt.comicWebsite.services;
 
-import com.dt.comicWebsite.models.Category;
 import com.dt.comicWebsite.models.Chapter;
 import com.dt.comicWebsite.models.Comic;
-import com.dt.comicWebsite.repositories.CategoryRepository;
 import com.dt.comicWebsite.repositories.ComicRepository;
 import com.dt.comicWebsite.repositories.ChapterRepository;
 import org.springframework.beans.factory.annotation.Autowired;

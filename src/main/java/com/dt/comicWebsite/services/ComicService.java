@@ -1,4 +1,4 @@
-package com.dt.comicWebsite.servies;
+package com.dt.comicWebsite.services;
 
 import com.dt.comicWebsite.models.Comic;
 import com.dt.comicWebsite.repositories.CategoryRepository;
