@@ -54,7 +54,6 @@ public class UserController {
     @PostMapping("/edit")
     public String editUser(@RequestParam int id, @ModelAttribute @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            System.out.println("Errors: " + bindingResult.getAllErrors());
             return "admin/user/editUser";
         }
 
