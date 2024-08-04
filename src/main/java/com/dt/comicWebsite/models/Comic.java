@@ -1,6 +1,7 @@
 package com.dt.comicWebsite.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.PositiveOrZero;
 import org.springframework.data.annotation.CreatedDate;
@@ -37,9 +38,9 @@ public class Comic {
     }
 
     // field
-    @NotEmpty(message = "Name cannot be empty.")
+    @NotBlank(message = "Name is mandatory")
     private String name;
-    @NotEmpty(message = "Author cannot be empty.")
+    @NotBlank(message = "Author is mandatory")
     private String author;
     private String status;
     private String country;

@@ -1,8 +1,8 @@
 package com.dt.comicWebsite.controllers.admin;
 
 import com.dt.comicWebsite.models.Chapter;
-import com.dt.comicWebsite.servies.ComicService;
-import com.dt.comicWebsite.servies.ChapterService;
+import com.dt.comicWebsite.services.ChapterService;
+import com.dt.comicWebsite.services.ComicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

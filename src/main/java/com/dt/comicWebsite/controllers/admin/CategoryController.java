@@ -1,7 +1,7 @@
 package com.dt.comicWebsite.controllers.admin;
 
 import com.dt.comicWebsite.models.Category;
-import com.dt.comicWebsite.servies.CategoryService;
+import com.dt.comicWebsite.services.CategoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
