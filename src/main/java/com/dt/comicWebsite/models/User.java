@@ -1,6 +1,10 @@
 package com.dt.comicWebsite.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -14,10 +18,21 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotBlank(message = "Username is mandatory")
+    @Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters")
     private String username;
+
+    @Email(message = "Email should be valid")
     private String email;
+
+    @NotBlank(message = "Password is mandatory")
+    @Size(min = 6, message = "Password must be at least 6 characters")
     private String password;
+
+    @NotBlank(message = "Role is mandatory")
+    @Pattern(regexp = "ADMIN|USER|EDITOR", message = "Role must be either ADMIN, USER, or MODERATOR")
     private String role;
+
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
@@ -26,6 +41,17 @@ public class User {
     @LastModifiedDate
     @Column(nullable = false)
     private LocalDateTime updated_at;
+
+    @PrePersist
+    protected void onCreate() {
+        created_at = LocalDateTime.now();
+        updated_at = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updated_at = LocalDateTime.now();
+    }
 
     // GETTER, SETTER
     public int getId() {

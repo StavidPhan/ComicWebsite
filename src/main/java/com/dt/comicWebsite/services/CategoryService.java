@@ -25,14 +25,12 @@ public class CategoryService {
         return categoryRepo.findById(id);
     }
 
-    public Boolean save(Category category) {
+    public void save(Category category) {
         try {
             categoryRepo.save(category);
-            return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
     }
 
     public boolean hasComics(int categoryId) {

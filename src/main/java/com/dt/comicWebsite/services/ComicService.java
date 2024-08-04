@@ -1,7 +1,6 @@
 package com.dt.comicWebsite.services;
 
 import com.dt.comicWebsite.models.Comic;
-import com.dt.comicWebsite.repositories.CategoryRepository;
 import com.dt.comicWebsite.repositories.ComicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,9 +12,6 @@ import java.util.List;
 public class ComicService {
     @Autowired
     private ComicRepository comicRepo;
-
-    @Autowired
-    private CategoryRepository categoryRepo;
 
     public List<Comic> getAll() {
         return comicRepo.findAll();
