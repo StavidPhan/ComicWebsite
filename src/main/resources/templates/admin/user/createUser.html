@@ -47,9 +47,11 @@
                             <div class="col-sm-8">
                                 <select class="form-select" th:field="${user.role}">
                                     <option value="" disabled selected>Select Role</option>
+                                    <option value="ROLE_ADMIN">ROLE_ADMIN</option>
+                                    <option value="ROLE_USER">ROLE_USER</option>
+                                    <option value="ROLE_EDITOR">ROLE_EDITOR</option>
                                     <option value="ADMIN">ADMIN</option>
                                     <option value="USER">USER</option>
-                                    <option value="EDITOR">EDITOR</option>
                                 </select>
                                 <p th:if="${#fields.hasErrors('role')}" th:errorclass="text-danger"
                                    th:errors="${user.role}"></p>

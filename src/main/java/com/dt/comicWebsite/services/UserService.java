@@ -40,4 +40,8 @@ public class UserService {
             e.printStackTrace();
         }
     }
+
+    public User findByUsername(String username) {
+        return userRepo.findByUsername(username);
+    }
 }
