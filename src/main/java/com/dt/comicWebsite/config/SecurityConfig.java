@@ -22,10 +22,11 @@ public class SecurityConfig implements WebMvcConfigurer {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-//                        .requestMatchers("/admin", "/admin/", "/admin/user/**").permitAll()
-//                        .requestMatchers("/admin/user", "/admin/comic").hasAuthority("USER")
-//                        .requestMatchers("/admin/**").hasAuthority("ADMIN")
-                        .anyRequest().permitAll()
+                        .requestMatchers("/admin", "/admin/").hasAnyRole("ADMIN", "MODERATOR")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/admin/comic/**", "/admin/category/**", "/admin/chapter/**").hasRole("MODERATOR")
+                        .requestMatchers("/admin/**").hasAnyRole("ADMIN", "MODERATOR", "USER")
+                        .anyRequest().authenticated()
                 )
                 .userDetailsService(userDetailsService)
                 .formLogin(formLogin ->
@@ -34,7 +35,13 @@ public class SecurityConfig implements WebMvcConfigurer {
                                 .defaultSuccessUrl("/admin", true)
                                 .permitAll()
                 )
-                .logout(LogoutConfigurer::permitAll);
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                        .permitAll()
+                );
 
         return http.build();
     }

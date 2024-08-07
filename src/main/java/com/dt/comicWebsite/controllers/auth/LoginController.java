@@ -14,7 +14,11 @@ public class LoginController {
 
     @PostMapping("/login")
     public String processLogin() {
-        // Xử lý logic đăng nhập
         return "redirect:/";
+    }
+
+    @GetMapping("/logout")
+    public String processLogout() {
+        return "redirect:/login";
     }
 }

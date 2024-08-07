@@ -48,8 +48,8 @@
                             <div class="col-sm-8">
                                 <select class="form-control" name="roleNames" multiple>
                                     <option th:each="role : ${allRoles}"
-                                            th:value="${role.getName()}"
-                                            th:text="${role.getName()}"></option>
+                                            th:value="${role.name}"
+                                            th:text="${role.name}"></option>
                                 </select>
                                 <p th:if="${#fields.hasErrors('roles')}" th:errorclass="text-danger"
                                    th:errors="*{roles}"></p>
