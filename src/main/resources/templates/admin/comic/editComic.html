@@ -20,6 +20,7 @@
                     <h2 class="text-center mb-5">Edit Comic</h2>
 
                     <form method="post" enctype="multipart/form-data" th:object="${comic}">
+                        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
                         <div class="row mb-3">
                             <label class="col-sm-4 col-form-label">Name</label>
                             <div class="col-sm-8">

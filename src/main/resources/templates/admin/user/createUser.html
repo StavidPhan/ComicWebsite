@@ -17,6 +17,7 @@
                     <h2 class="text-center mb-5">New User</h2>
 
                     <form method="post" enctype="multipart/form-data" th:object="${user}">
+                        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
                         <div class="row mb-3">
                             <label class="col-sm-4 col-form-label">Username</label>
                             <div class="col-sm-8">
@@ -41,17 +42,17 @@
                                    th:errors="${user.password}"></p>
                             </div>
                         </div>
+
                         <div class="row mb-3">
                             <label class="col-sm-4 col-form-label">Role</label>
                             <div class="col-sm-8">
-                                <select class="form-select" th:field="${user.role}">
-                                    <option value="" disabled selected>Select Role</option>
-                                    <option value="ADMIN">ADMIN</option>
-                                    <option value="USER">USER</option>
-                                    <option value="EDITOR">EDITOR</option>
+                                <select class="form-control" name="roleIds" multiple>
+                                    <option th:each="role : ${allRoles}"
+                                            th:value="${role.id}"
+                                            th:text="${role.name}"></option>
                                 </select>
-                                <p th:if="${#fields.hasErrors('role')}" th:errorclass="text-danger"
-                                   th:errors="${user.role}"></p>
+                                <p th:if="${#fields.hasErrors('roles')}" th:errorclass="text-danger"
+                                   th:errors="*{roles}"></p>
                             </div>
                         </div>
 
