@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin/user")
@@ -40,14 +41,15 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public String createUser(@ModelAttribute @Valid User user, BindingResult bindingResult, @RequestParam("roleNames") List<String> roleNames) {
+    public String createUser(@ModelAttribute @Valid User user, BindingResult bindingResult, @RequestParam("roleIds") List<Integer> roleIds, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("allRoles", roleService.getAll());
             return "admin/user/createUser";
         }
 
         Set<Role> roles = new HashSet<>();
-        for (String roleName : roleNames) {
-            Role role = roleService.findByName(Role.ERole.valueOf(roleName));
+        for (Integer roleId : roleIds) {
+            Role role = roleService.getById(roleId);
             if (role != null) {
                 roles.add(role);
             }
@@ -63,19 +65,26 @@ public class UserController {
         User user = userService.getById(id);
         model.addAttribute("user", user);
         model.addAttribute("allRoles", roleService.getAll());
+
+        // previously selected roles
+        model.addAttribute("selectedRoleIds", user.getRoles().stream()
+                .map(Role::getId)
+                .collect(Collectors.toList()));
+
         return "admin/user/editUser";
     }
 
     @PostMapping("/edit")
-    public String editUser(@RequestParam int id, @ModelAttribute @Valid User user, BindingResult bindingResult, @RequestParam("roleNames") List<String> roleNames) {
+    public String editUser(@RequestParam int id, @ModelAttribute @Valid User user, BindingResult bindingResult, @RequestParam("roleIds") List<Integer> roleIds, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("allRoles", roleService.getAll());
             return "admin/user/editUser";
         }
 
         user.setId(id);   // đảm bảo id không bị thay đổi
         Set<Role> roles = new HashSet<>();
-        for (String roleName : roleNames) {
-            Role role = roleService.findByName(Role.ERole.valueOf(roleName));
+        for (Integer roleId : roleIds) {
+            Role role = roleService.getById(roleId);
             if (role != null) {
                 roles.add(role);
             }

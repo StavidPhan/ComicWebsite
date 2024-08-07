@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -22,10 +21,10 @@ public class SecurityConfig implements WebMvcConfigurer {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
+//                        .anyRequest().permitAll()
                         .requestMatchers("/admin", "/admin/").hasAnyRole("ADMIN", "MODERATOR")
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/admin/comic/**", "/admin/category/**", "/admin/chapter/**").hasRole("MODERATOR")
-                        .requestMatchers("/admin/**").hasAnyRole("ADMIN", "MODERATOR", "USER")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .userDetailsService(userDetailsService)

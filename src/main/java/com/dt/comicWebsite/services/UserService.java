@@ -26,8 +26,18 @@ public class UserService {
 
     public void save(User user) {
         try {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            userRepo.save(user);
+            // create a new User
+            if (user.getId() == null) {
+                user.setPassword(passwordEncoder.encode(user.getPassword()));
+                userRepo.save(user);
+            } else {
+                // update User
+                User existingUser = userRepo.findById(user.getId()).orElseThrow(() -> new RuntimeException("User not found in edit User"));
+                existingUser.setUsername(user.getUsername());
+                existingUser.setEmail(user.getEmail());
+                existingUser.setRoles(user.getRoles());
+                userRepo.save(existingUser);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
