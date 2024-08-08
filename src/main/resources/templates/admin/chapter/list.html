@@ -46,7 +46,7 @@
                                     <tbody>
                                     <tr th:each="chapter : ${chapters}">
                                         <td th:text="${chapter.id} "></td>
-                                        <td th:text="${chapter.chapter_number} "></td>
+                                        <td th:text="${chapter.chapterNumber} "></td>
                                         <td>
                                             <span th:each="comic, iterStat : ${chapter.comic}">
                                                 <span th:text="${comic.name}"></span>
