@@ -56,4 +56,8 @@ public class ChapterService {
         }
         return false;
     }
+
+    public Chapter findByComicAndChapterNumber(Comic comic, int chapterNumber) {
+        return chapterRepo.findByComicAndChapterNumber(comic, chapterNumber);
+    }
 }

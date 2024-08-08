@@ -35,6 +35,11 @@ public class CategoryController {
 
     @PostMapping("/create")
     public String createCategory(@ModelAttribute @Valid Category category, BindingResult bindingResult) {
+        // check if name is already exists
+        if (categoryService.findByName(category.getName()) != null) {
+            bindingResult.rejectValue("name", "error.category", "Category name is already exists.");
+        }
+
         if (bindingResult.hasErrors()) {
             return "admin/category/createCategory";
         }
@@ -53,6 +58,11 @@ public class CategoryController {
 
     @PostMapping("/edit")
     public String editCategory(@RequestParam int id, @Valid @ModelAttribute Category category, BindingResult bindingResult) {
+        // check if name is already exists
+        if (categoryService.findByName(category.getName()) != null) {
+            bindingResult.rejectValue("name", "error.category", "Category name is already exists.");
+        }
+
         if (bindingResult.hasErrors()) {
             return "admin/category/editCategory";
         }

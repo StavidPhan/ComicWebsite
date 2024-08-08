@@ -46,4 +46,8 @@ public class CategoryService {
             e.printStackTrace();
         }
     }
+
+    public Category findByName(String name) {
+        return categoryRepo.findByName(name);
+    }
 }

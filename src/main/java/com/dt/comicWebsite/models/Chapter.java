@@ -16,7 +16,7 @@ public class Chapter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int chapter_number;
+    private int chapterNumber;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
@@ -58,12 +58,12 @@ public class Chapter {
         this.id = id;
     }
 
-    public int getChapter_number() {
-        return chapter_number;
+    public int getChapterNumber() {
+        return chapterNumber;
     }
 
-    public void setChapter_number(int chapter_number) {
-        this.chapter_number = chapter_number;
+    public void setChapterNumber(int chapterNumber) {
+        this.chapterNumber = chapterNumber;
     }
 
     public LocalDateTime getCreated_at() {
