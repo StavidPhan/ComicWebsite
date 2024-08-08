@@ -41,6 +41,10 @@ public class ComicController {
 
     @PostMapping("/create")
     public String createComic(@ModelAttribute @Valid Comic comic, BindingResult bindingResult, Model model) {
+        // check if (name and author) is already exists
+        if (comicService.findByNameAndAuthor(comic.getName(), comic.getAuthor()) != null) {
+            bindingResult.rejectValue("name", "error.comic", "Comic with the same name and author already exists.");
+        }
         if (bindingResult.hasErrors()) {
             model.addAttribute("categories", categoryService.getAll());
             return "admin/comic/createComic";

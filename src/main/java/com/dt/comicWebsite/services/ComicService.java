@@ -1,5 +1,6 @@
 package com.dt.comicWebsite.services;
 
+import com.dt.comicWebsite.models.Category;
 import com.dt.comicWebsite.models.Comic;
 import com.dt.comicWebsite.repositories.ComicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,5 +55,9 @@ public class ComicService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public Comic findByNameAndAuthor(String name, String author) {
+        return comicRepo.findByNameAndAuthor(name, author);
     }
 }
