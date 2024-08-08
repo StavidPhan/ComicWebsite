@@ -45,8 +45,6 @@ public class UserController {
         // check if username or email already exists
         if (userService.findByUsername(user.getUsername()) != null || userService.findByEmail(user.getEmail()) != null) {
             bindingResult.rejectValue("username", "error.user", "User already exists");
-            model.addAttribute("allRoles", roleService.getAll());
-            return "admin/user/createUser";
         }
 
         if (bindingResult.hasErrors()) {
@@ -83,6 +81,11 @@ public class UserController {
 
     @PostMapping("/edit")
     public String editUser(@RequestParam int id, @ModelAttribute @Valid User user, BindingResult bindingResult, @RequestParam("roleIds") List<Integer> roleIds, Model model) {
+        // check if username or email already exists
+        if (userService.findByUsername(user.getUsername()) != null || userService.findByEmail(user.getEmail()) != null) {
+            bindingResult.rejectValue("username", "error.user", "User already exists");
+        }
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("allRoles", roleService.getAll());
             return "admin/user/editUser";
