@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
-<head th:replace="admin/layouts/head :: head"></head>
+<head th:replace="~{admin/layouts/head :: head}"></head>
 
 <body>
 
 <div id="wrapper">
 
     <!--Header-->
-    <span th:replace="admin/layouts/header :: header"></span>
+    <span th:replace="~{admin/layouts/header :: header}"></span>
     <!--End Header-->
 
-    <span th:replace="admin/layouts/sidebar :: sidebar"></span>
+    <span th:replace="~{admin/layouts/sidebar :: sidebar}"></span>
     <!-- /.sidebar -->
 
     <div id="page-wrapper">
@@ -85,7 +85,7 @@
 </div>
 <!-- /#wrapper -->
 
-<div th:replace="admin/layouts/script :: script"></div>
+<div th:replace="~{admin/layouts/script :: script}"></div>
 
 </body>
 
